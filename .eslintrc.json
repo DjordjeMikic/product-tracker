@@ -1,0 +1,64 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx", "import"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {
+        "camelcase": 0,
+        "arrow-body-style": ["error", "as-needed"],
+        "no-else-return": 1,
+        "no-nested-ternary": 0,
+        "no-param-reassign": 0,
+        "no-underscore-dangle": 0,
+        "global-require": "off",
+        "no-console": 0,
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-redeclare": 0,
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "no-shadow": 0, // handled by TS
+        "@typescript-eslint/explicit-module-boundary-types": 0, // Allow functions without explicit return type
+        "@typescript-eslint/no-use-before-define": 2, // Variable must be declared before its use
+        "@typescript-eslint/no-shadow": 2, // Forbid declaring variables that have duplicate names in the same scope
+        "@typescript-eslint/no-empty-function": 0, // allow empty function
+        "no-case-declarations": "off",
+        "require-await": "warn",
+        "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "react/require-default-props": 0,
+        "react/jsx-no-useless-fragment": 0
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    }
+  ]
+}
