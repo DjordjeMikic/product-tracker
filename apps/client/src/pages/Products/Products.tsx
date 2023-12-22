@@ -18,24 +18,17 @@ export const Products = () => {
   );
 
   const onScroll = (e) => {
-    const el = e.target;
+    const { target: el } = e;
     const nextPage = el.scrollTop >= el.scrollHeight - el.offsetHeight - 4;
     if (hasNextPage && nextPage) fetchNextPage();
   };
-
-  // useEffect(() => {
-  //   if (products) {
-  //     const arr: ProductItem[] = products?.pages.reduce((acc, item) => [...acc, ...Object.values(item?.data)], []);
-  //     console.log(products, arr);
-  //   }
-  // }, [products]);
 
   useEffect(() => {
     handleSearch();
   }, [search, handleSearch]);
 
   return (
-    <Container className="flex column" onScroll={onScroll}>
+    <Container onScroll={onScroll}>
       <AddProduct search={search} setSearch={setSearch} />
       <Table
         // @ts-expect-error: expected prop type
